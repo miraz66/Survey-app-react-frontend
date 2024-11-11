@@ -1,4 +1,8 @@
+import { UserStateContext } from "../context/ContextProvider.jsx";
+
 export default function Surveys() {
+  const { surveys } = UserStateContext();
+
   return (
     <>
       <div className="bg-white">

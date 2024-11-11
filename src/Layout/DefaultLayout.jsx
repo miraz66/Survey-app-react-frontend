@@ -12,7 +12,7 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { NavLink, Outlet } from "react-router-dom";
+import { Navigate, NavLink, Outlet } from "react-router-dom";
 import { UserStateContext } from "../context/ContextProvider.jsx";
 
 const navigation = [
@@ -31,7 +31,15 @@ const userNavigation = [
 export default function DefaultLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [login, setLogin] = useState(false);
-  const { currentUser } = UserStateContext();
+  const { currentUser, userToken } = UserStateContext();
+
+  if (!userToken) {
+    return <Navigate to="/login" />;
+  }
+
+  const handleLogout = () => {
+    setLogin(true);
+  };
 
   return (
     <div className="bg-white">
@@ -74,6 +82,8 @@ export default function DefaultLayout() {
                 {item.name}
               </NavLink>
             ))}
+
+            <p>{userToken}</p>
           </div>
           {login ? (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -98,13 +108,13 @@ export default function DefaultLayout() {
                   transition
                   className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                 >
-                  {userNavigation.map((item) => (
-                    <MenuItem key={item.name}>
+                  {userNavigation.map(({ name, href }) => (
+                    <MenuItem key={name}>
                       <a
-                        href={item.href}
+                        href={href}
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                       >
-                        {item.name}
+                        {name}
                       </a>
                     </MenuItem>
                   ))}
@@ -168,17 +178,17 @@ export default function DefaultLayout() {
                   <>
                     <div className="border-t border-gray-700 pb-3 pt-4">
                       <div className="mt-3 space-y-1">
-                        {userNavigation.map((item) => (
+                        {userNavigation.map(({ name, href }) => (
                           <NavLink
-                            key={item.name}
-                            to={item.href}
+                            key={name}
+                            to={href}
                             className={({ isActive }) =>
                               isActive
                                 ? "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-indigo-600 hover:bg-gray-50"
                                 : "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                             }
                           >
-                            {item.name}
+                            {name}
                           </NavLink>
                         ))}
                       </div>
