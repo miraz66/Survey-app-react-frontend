@@ -23,7 +23,7 @@ export default function Modal({ close, isOpen, children, title, className }) {
             >
               <DialogTitle
                 as="h3"
-                className="text-base/7 font-medium text-white"
+                className="text-center text-2xl font-medium text-gray-900"
               >
                 {title}
               </DialogTitle>
