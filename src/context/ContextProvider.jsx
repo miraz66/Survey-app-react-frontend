@@ -206,6 +206,7 @@ export const ContextProvider = ({ children }) => {
         userToken,
         setUserToken,
         surveys,
+        setSurveys,
       }}
     >
       {children}
@@ -213,4 +214,4 @@ export const ContextProvider = ({ children }) => {
   );
 };
 
-export const UserStateContext = () => useContext(StateContext);
+export const UseStateContext = () => useContext(StateContext);

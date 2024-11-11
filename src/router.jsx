@@ -6,6 +6,7 @@ import NotFound from "./components/NotFound.jsx";
 import GuestLayout from "./Layout/GuestLayout.jsx";
 import Surveys from "./pages/Surveys.jsx";
 import DefaultLayout from "./Layout/DefaultLayout.jsx";
+import SurveyView from "./pages/SurveyView.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/surveys",
         element: <Surveys />,
+      },
+      {
+        path: "/surveys/create",
+        element: <SurveyView />,
       },
     ],
   },

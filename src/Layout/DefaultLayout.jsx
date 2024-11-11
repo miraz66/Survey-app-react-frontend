@@ -13,7 +13,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Navigate, NavLink, Outlet } from "react-router-dom";
-import { UserStateContext } from "../context/ContextProvider.jsx";
+import { UseStateContext } from "../context/ContextProvider.jsx";
 
 const navigation = [
   { name: "Dashboard", href: "/" },
@@ -31,7 +31,7 @@ const userNavigation = [
 export default function DefaultLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [login, setLogin] = useState(false);
-  const { currentUser, userToken } = UserStateContext();
+  const { currentUser, userToken, surveys } = UseStateContext();
 
   if (!userToken) {
     return <Navigate to="/login" />;
@@ -82,8 +82,6 @@ export default function DefaultLayout() {
                 {item.name}
               </NavLink>
             ))}
-
-            <p>{userToken}</p>
           </div>
           {login ? (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -200,6 +198,7 @@ export default function DefaultLayout() {
           </DialogPanel>
         </Dialog>
       </header>
+
       <Outlet />
     </div>
   );
