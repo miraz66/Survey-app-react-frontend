@@ -2,7 +2,7 @@ import Modal from "../components/Modal.jsx";
 import { useState } from "react";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 
-export default function SurveyView({ close, isOpen }) {
+export default function Create({ close, isOpen }) {
   const [data, setData] = useState({
     title: "",
     slug: "",
@@ -24,15 +24,6 @@ export default function SurveyView({ close, isOpen }) {
       >
         <form>
           <div className="space-y-12">
-            <div className="border-b border-gray-900/10 pb-12">
-              <h2 className="text-base/7 font-semibold text-gray-900">
-                Profile
-              </h2>
-              <p className="mt-1 text-sm/6 text-gray-600">
-                This information will be displayed publicly so be careful what
-                you share.
-              </p>
-            </div>
             <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="col-span-full">
                 <label
@@ -75,22 +66,22 @@ export default function SurveyView({ close, isOpen }) {
 
               <div className="col-span-full">
                 <label
-                  htmlFor="about"
+                  htmlFor="description"
                   className="block text-sm/6 font-medium text-gray-900"
                 >
-                  About
+                  Description
                 </label>
                 <div className="mt-2">
                   <textarea
-                    id="about"
-                    name="about"
+                    id="description"
+                    name="description"
                     rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                     defaultValue={""}
                   />
                 </div>
                 <p className="mt-3 text-sm/6 text-gray-600">
-                  Write a few sentences about yourself.
+                  Write a few sentences description for your survey.
                 </p>
               </div>
 

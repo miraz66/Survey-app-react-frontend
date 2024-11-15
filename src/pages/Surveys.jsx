@@ -3,7 +3,7 @@ import SurveyListItem from "../components/SurveyListItem.jsx";
 import TButton from "../components/core/TButton.jsx";
 import { PlusCircleIcon } from "@heroicons/react/24/solid/index.js";
 import { useState } from "react";
-import SurveyView from "./SurveyView.jsx";
+import Create from "./Create.jsx";
 
 export default function Surveys() {
   const { surveys } = UseStateContext();
@@ -38,7 +38,7 @@ export default function Surveys() {
         </div>
       </div>
 
-      <div className="grid min-h-screen grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid min-h-screen grid-cols-1 gap-5 px-4 sm:grid-cols-2 md:grid-cols-3">
         {surveys.map((survey) => (
           <SurveyListItem
             key={survey.id}
@@ -48,7 +48,7 @@ export default function Surveys() {
         ))}
       </div>
 
-      <SurveyView isOpen={isOpen} close={close} __demoMode />
+      <Create isOpen={isOpen} close={close} __demoMode />
     </>
   );
 }

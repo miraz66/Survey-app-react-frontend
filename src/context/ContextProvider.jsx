@@ -186,6 +186,62 @@ const tmpSurveys = [
     expire_date: "2022-01-20",
     questions: [],
   },
+  {
+    id: 4,
+    image_url:
+      "https://images.unsplash.com/photo-1529359744902-86b2ab9edaea?q=80&w=1080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Laravel 9",
+    slug: "laravel-9",
+    status: true,
+    description:
+      "Laravel is a web application framework with expressive, elegant syntax. We\u2019ve already laid the foundation \u2014 freeing you to create without sweating the small things.",
+    created_at: "2022-01-07 13:28:56",
+    updated_at: "2022-01-07 13:28:56",
+    expire_date: "2022-01-20",
+    questions: [],
+  },
+  {
+    id: 5,
+    image_url:
+      "https://images.unsplash.com/photo-1529359744902-86b2ab9edaea?q=80&w=1080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Laravel 9",
+    slug: "laravel-9",
+    status: true,
+    description:
+      "Laravel is a web application framework with expressive, elegant syntax. We\u2019ve already laid the foundation \u2014 freeing you to create without sweating the small things.",
+    created_at: "2022-01-07 13:28:56",
+    updated_at: "2022-01-07 13:28:56",
+    expire_date: "2022-01-20",
+    questions: [],
+  },
+  {
+    id: 6,
+    image_url:
+      "https://images.unsplash.com/photo-1529359744902-86b2ab9edaea?q=80&w=1080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Laravel 9",
+    slug: "laravel-9",
+    status: true,
+    description:
+      "Laravel is a web application framework with expressive, elegant syntax. We\u2019ve already laid the foundation \u2014 freeing you to create without sweating the small things.",
+    created_at: "2022-01-07 13:28:56",
+    updated_at: "2022-01-07 13:28:56",
+    expire_date: "2022-01-20",
+    questions: [],
+  },
+  {
+    id: 7,
+    image_url:
+      "https://images.unsplash.com/photo-1529359744902-86b2ab9edaea?q=80&w=1080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Laravel 9",
+    slug: "laravel-9",
+    status: true,
+    description:
+      "Laravel is a web application framework with expressive, elegant syntax. We\u2019ve already laid the foundation \u2014 freeing you to create without sweating the small things.",
+    created_at: "2022-01-07 13:28:56",
+    updated_at: "2022-01-07 13:28:56",
+    expire_date: "2022-01-20",
+    questions: [],
+  },
 ];
 
 export const ContextProvider = ({ children }) => {
