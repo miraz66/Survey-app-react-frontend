@@ -58,6 +58,10 @@ export default function Create({ close, isOpen }) {
                     id="first-name"
                     name="first-name"
                     type="text"
+                    value={data.title}
+                    onChange={(e) => {
+                      setData({ ...data, title: e.target.value });
+                    }}
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                   />
@@ -76,6 +80,10 @@ export default function Create({ close, isOpen }) {
                     id="description"
                     name="description"
                     rows={3}
+                    value={data.description}
+                    onChange={(e) => {
+                      setData({ ...data, description: e.target.value });
+                    }}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                     defaultValue={""}
                   />
@@ -97,6 +105,10 @@ export default function Create({ close, isOpen }) {
                     id="first-name"
                     name="first-name"
                     type="date"
+                    value={data.expire_date}
+                    onChange={(e) => {
+                      setData({ ...data, expire_date: e.target.value });
+                    }}
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                   />
@@ -109,6 +121,10 @@ export default function Create({ close, isOpen }) {
                     id="comments"
                     name="comments"
                     type="checkbox"
+                    checked={data.status}
+                    onChange={(e) => {
+                      setData({ ...data, status: e.target.checked });
+                    }}
                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
                 </div>
