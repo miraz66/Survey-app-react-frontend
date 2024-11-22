@@ -14,6 +14,13 @@ export default function Create({ close, isOpen }) {
     questions: [],
   });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+  };
+
+  console.log(data);
+
   return (
     <>
       <Modal
@@ -22,7 +29,7 @@ export default function Create({ close, isOpen }) {
         className="max-w-2xl"
         title="Create Survey"
       >
-        <form>
+        <form onSubmit={handleSubmit} method="POST">
           <div className="space-y-12">
             <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="col-span-full">
@@ -33,16 +40,30 @@ export default function Create({ close, isOpen }) {
                   Photo
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
-                  <UserCircleIcon
-                    aria-hidden="true"
-                    className="h-12 w-12 text-gray-300"
+                  {!data.image ? (
+                    <UserCircleIcon
+                      aria-hidden="true"
+                      className="h-12 w-12 text-gray-300"
+                    />
+                  ) : (
+                    <img
+                      src={data.image}
+                      className="h-12 w-12 rounded-full object-cover"
+                      alt="photo"
+                    />
+                  )}
+                  <input
+                    onChange={(e) => {
+                      setData({
+                        ...data,
+                        image: URL.createObjectURL(e.target.files[0]),
+                      });
+                    }}
+                    type="file"
+                    id="photo"
+                    name="photo"
+                    accept="image/*"
                   />
-                  <button
-                    type="button"
-                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  >
-                    Change
-                  </button>
                 </div>
               </div>
 
