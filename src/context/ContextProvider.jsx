@@ -250,7 +250,7 @@ export const ContextProvider = ({ children }) => {
     email: "email",
     id: "1",
   });
-  const [userToken, setUserToken] = useState(123456789);
+  const [userToken, setUserToken] = useState("");
   const [surveys, setSurveys] = useState(tmpSurveys);
 
   return (

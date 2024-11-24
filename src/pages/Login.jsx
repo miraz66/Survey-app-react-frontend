@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export default function Login() {
+  const [email, setEmail] = useState();
+
   return (
     <>
       <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
@@ -66,12 +70,13 @@ export default function Login() {
         </form>
 
         <p className="mt-10 text-center text-sm/6 text-gray-500">
-          Not a member?{" "}
+          Have a no account?
           <a
-            href="#"
+            href="/signup"
             className="font-semibold text-indigo-600 hover:text-indigo-500"
           >
-            Start a 14 day free trial
+            {" "}
+            Sign up
           </a>
         </p>
       </div>

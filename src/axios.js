@@ -7,7 +7,10 @@ const axiosClient = axios.create({
 export default axiosClient;
 
 axiosClient.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${import.meta.env.VITE_API_TOKEN}`;
+  const token = "123456";
+  // config.headers.Authorization = `Bearer ${import.meta.env.VITE_API_TOKEN}`;
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
 });
 
 axiosClient.interceptors.response.use(
