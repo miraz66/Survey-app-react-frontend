@@ -6,9 +6,11 @@ export default function SignUp() {
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    password_confirmation: "",
   });
-  const [error, setError] = useState({ __html: "" });
+
+  const [errors, setErrors] = useState({}); // To store validation errors
+  const [successMessage, setSuccessMessage] = useState(""); // To show success feedback
 
   const handleChange = (e) => {
     setData({
@@ -19,136 +21,148 @@ export default function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError({ __html: "" });
+    setErrors({}); // Reset errors before submission
+    setSuccessMessage(""); // Reset success message
 
     axiosClient
       .post("/signup", data)
       .then(({ data }) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        // Save the token to localStorage
+        localStorage.setItem("auth_token", data.token);
 
-    console.log(data);
+        // Optionally save user info if needed
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        // Display a success message
+        setSuccessMessage("Account created successfully! Token saved.");
+        console.log("Token:", data.token);
+        console.log("User:", data.user);
+
+        // Optionally redirect the user
+        // window.location.href = '/dashboard'; // Example
+      })
+      .catch(({ response }) => {
+        if (response && response.data && response.data.errors) {
+          setErrors(response.data.errors); // Capture validation errors
+        } else {
+          console.error("Signup Error:", response);
+        }
+      });
   };
+
+  // set time for error message
+  setTimeout(() => {
+    setSuccessMessage("");
+  }, 10000);
 
   return (
     <>
-      <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-        Create an account Create an account
-      </h2>
+      <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <h2 className="text-center text-2xl font-bold">Create an Account</h2>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-2xl">
-        <form
-          onSubmit={handleSubmit}
-          action="#"
-          method="POST"
-          className="space-y-6"
-        >
+        {successMessage && (
+          <div className="mb-4 rounded bg-green-100 p-3 text-green-700">
+            {successMessage}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Full Name */}
           <div>
             <label
               htmlFor="name"
-              className="float-left block text-sm/6 font-medium text-gray-900"
+              className="block text-sm font-medium text-gray-700"
             >
-              Full name
+              Full Name
             </label>
-            <div className="mt-2">
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                onChange={handleChange}
-                autoComplete="name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              />
-            </div>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={data.name}
+              onChange={handleChange}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name[0]}</p>
+            )}
           </div>
 
+          {/* Email Address */}
           <div>
             <label
               htmlFor="email"
-              className="float-left block text-sm/6 font-medium text-gray-900"
+              className="block text-sm font-medium text-gray-700"
             >
-              Email address
+              Email Address
             </label>
-            <div className="mt-2">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                onChange={handleChange}
-                autoComplete="email"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              />
-            </div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={data.email}
+              onChange={handleChange}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email[0]}</p>
+            )}
           </div>
 
+          {/* Password */}
           <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                Password
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                onChange={handleChange}
-                id="password"
-                name="password"
-                type="password"
-                required
-                autoComplete="current-password"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              />
-            </div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={data.password}
+              onChange={handleChange}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password[0]}</p>
+            )}
           </div>
 
+          {/* Confirm Password */}
           <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                Confirm Password
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                onChange={handleChange}
-                id="confirmPassword"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                name="confirmPassword"
-                type="password"
-                required
-                autoComplete="current-password"
-              />
-            </div>
+            <label
+              htmlFor="password_confirmation"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Confirm Password
+            </label>
+            <input
+              id="password_confirmation"
+              name="password_confirmation"
+              type="password"
+              value={data.password_confirmation}
+              onChange={handleChange}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+            {errors.password_confirmation && (
+              <p className="text-sm text-red-500">
+                {errors.password_confirmation[0]}
+              </p>
+            )}
           </div>
 
+          {/* Submit Button */}
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="w-full rounded-md bg-indigo-600 py-2 text-white hover:bg-indigo-700"
             >
-              Sign in
+              Sign Up
             </button>
           </div>
         </form>
-
-        <p className="mt-10 text-center text-sm/6 text-gray-500">
-          Already have an account?
-          <a
-            href="/login"
-            className="font-semibold text-indigo-600 hover:text-indigo-500"
-          >
-            Sign in
-          </a>
-        </p>
       </div>
     </>
   );
