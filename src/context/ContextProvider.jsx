@@ -245,12 +245,10 @@ const tmpSurveys = [
 ];
 
 export const ContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState({
-    name: "miraz",
-    email: "email",
-    id: "1",
-  });
-  const [userToken, setUserToken] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
+  const [userToken, setUserToken] = useState(
+    localStorage.getItem("auth_token") || "",
+  );
   const [surveys, setSurveys] = useState(tmpSurveys);
 
   return (
@@ -269,4 +267,4 @@ export const ContextProvider = ({ children }) => {
   );
 };
 
-export const UseStateContext = () => useContext(StateContext);
+export const useStateContext = () => useContext(StateContext);

@@ -1,4 +1,4 @@
-import { UseStateContext } from "../context/ContextProvider.jsx";
+import { useStateContext } from "../context/ContextProvider.jsx";
 import SurveyListItem from "../components/SurveyListItem.jsx";
 import TButton from "../components/core/TButton.jsx";
 import { PlusCircleIcon } from "@heroicons/react/24/solid/index.js";
@@ -6,7 +6,7 @@ import { useState } from "react";
 import Create from "./Create.jsx";
 
 export default function Surveys() {
-  const { surveys } = UseStateContext();
+  const { surveys } = useStateContext();
   let [isOpen, setIsOpen] = useState(false);
 
   const onDeleteClick = () => {

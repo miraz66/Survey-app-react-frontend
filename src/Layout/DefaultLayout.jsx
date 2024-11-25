@@ -12,8 +12,8 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Navigate, NavLink, Outlet } from "react-router-dom";
-import { UseStateContext } from "../context/ContextProvider.jsx";
+import { Link, Navigate, NavLink, Outlet } from "react-router-dom";
+import { useStateContext } from "../context/ContextProvider.jsx";
 
 const navigation = [
   { name: "Dashboard", href: "/" },
@@ -25,20 +25,21 @@ const navigation = [
 const userNavigation = [
   { name: "Your Profile", href: "/profile" },
   { name: "Settings", href: "/settings" },
-  { name: "Sign out", href: "/logout" },
 ];
 
 export default function DefaultLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [login, setLogin] = useState(false);
-  const { currentUser, userToken, surveys } = UseStateContext();
+  const { currentUser, userToken, surveys } = useStateContext();
 
   if (!userToken) {
     return <Navigate to="/login" />;
   }
 
   const handleLogout = () => {
-    setLogin(true);
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("user");
+    window.location.href = "/login";
   };
 
   return (
@@ -108,14 +109,22 @@ export default function DefaultLayout() {
                 >
                   {userNavigation.map(({ name, href }) => (
                     <MenuItem key={name}>
-                      <a
-                        href={href}
+                      <Link
+                        to={href}
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                       >
                         {name}
-                      </a>
+                      </Link>
                     </MenuItem>
                   ))}
+                  <MenuItem>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+                    >
+                      Sign out
+                    </button>
+                  </MenuItem>
                 </MenuItems>
               </Menu>
             </div>

@@ -1,7 +1,51 @@
 import { useState } from "react";
+import axiosClient from "../axios.js";
+import { useStateContext } from "../context/ContextProvider.jsx";
 
 export default function Login() {
-  const [email, setEmail] = useState();
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { setCurrentUser, setUserToken } = useStateContext();
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+
+    axiosClient
+      .post("/login", data)
+      .then(({ data }) => {
+        // Save the token to localStorage
+        if (data.token) {
+          localStorage.setItem("auth_token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+        } else {
+          localStorage.removeItem("auth_token");
+          localStorage.removeItem("user");
+        }
+
+        setCurrentUser(data.user);
+        setUserToken(data.token);
+
+        // Display a success message
+        console.log("Token:", data.token);
+        console.log("User:", data.user);
+      })
+      .catch(({ response }) => {
+        if (response && response.data && response.data.errors) {
+          console.log(response.data.errors);
+        }
+      });
+  };
 
   return (
     <>
@@ -10,7 +54,12 @@ export default function Login() {
       </h2>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-xl">
-        <form action="#" method="POST" className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          action="#"
+          method="POST"
+          className="space-y-6"
+        >
           <div>
             <label
               htmlFor="email"
@@ -20,6 +69,7 @@ export default function Login() {
             </label>
             <div className="mt-2">
               <input
+                onChange={handleChange}
                 id="email"
                 name="email"
                 type="email"
@@ -49,6 +99,7 @@ export default function Login() {
             </div>
             <div className="mt-2">
               <input
+                onChange={handleChange}
                 id="password"
                 name="password"
                 type="password"

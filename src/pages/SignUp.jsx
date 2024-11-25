@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axiosClient from "../axios.js";
+import { useStateContext } from "../context/ContextProvider.jsx";
 
 export default function SignUp() {
   const [data, setData] = useState({
@@ -8,6 +9,7 @@ export default function SignUp() {
     password: "",
     password_confirmation: "",
   });
+  const { setCurrentUser, setUserToken } = useStateContext();
 
   const [errors, setErrors] = useState({}); // To store validation errors
   const [successMessage, setSuccessMessage] = useState(""); // To show success feedback
@@ -28,15 +30,20 @@ export default function SignUp() {
       .post("/signup", data)
       .then(({ data }) => {
         // Save the token to localStorage
-        localStorage.setItem("auth_token", data.token);
-
-        // Optionally save user info if needed
-        localStorage.setItem("user", JSON.stringify(data.user));
+        if (data.token) {
+          localStorage.setItem("auth_token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+        } else {
+          localStorage.removeItem("auth_token");
+          localStorage.removeItem("user");
+        }
 
         // Display a success message
         setSuccessMessage("Account created successfully! Token saved.");
         console.log("Token:", data.token);
         console.log("User:", data.user);
+        setCurrentUser(data.user);
+        setUserToken(data.token);
 
         // Optionally redirect the user
         // window.location.href = '/dashboard'; // Example
@@ -57,7 +64,7 @@ export default function SignUp() {
 
   return (
     <>
-      <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col justify-center py-12 sm:px-6 lg:px-8">
         <h2 className="text-center text-2xl font-bold">Create an Account</h2>
 
         {successMessage && (
