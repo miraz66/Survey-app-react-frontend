@@ -1,31 +1,3 @@
-// import axios from "axios";
-// import router from "./router.jsx";
-//
-// const axiosClient = axios.create({
-//   baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
-// });
-// export default axiosClient;
-//
-// axiosClient.interceptors.request.use((config) => {
-//   const token = "123456";
-//   // config.headers.Authorization = `Bearer ${import.meta.env.VITE_API_TOKEN}`;
-//   config.headers.Authorization = `Bearer ${token}`;
-//   return config;
-// });
-//
-// axiosClient.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-//     if (error.response && error.response.status === 401) {
-//       router.navigate("/login");
-//       return error;
-//     }
-//     throw error;
-//   },
-// );
-
 import axios from "axios";
 
 // Create an instance of Axios
