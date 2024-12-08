@@ -3,11 +3,11 @@ import { useState } from "react";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import axiosClient from "../axios.js";
 
-export default function Create({ close, isOpen }) {
+export default function Edit({ close, isOpen }) {
   const [data, setData] = useState({
     title: "",
     slug: "",
-    status: false,
+    status: true,
     description: "",
     image: null,
     image_url: null,

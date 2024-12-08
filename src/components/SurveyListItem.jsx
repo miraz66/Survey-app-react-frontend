@@ -5,9 +5,15 @@ import {
 } from "@heroicons/react/24/outline";
 import TButton from "./core/TButton.jsx";
 import { PropTypes } from "prop-types";
+import Edit from "../pages/Edit.jsx";
 // import core from "./core/core";
 
-export default function SurveyListItem({ survey, onDeleteClick }) {
+export default function SurveyListItem({
+  survey,
+  onDeleteClick,
+  close,
+  isOpen,
+}) {
   return (
     <div className="flex h-[470px] flex-col bg-white px-6 py-4 shadow-md hover:bg-gray-50">
       <img
@@ -22,7 +28,7 @@ export default function SurveyListItem({ survey, onDeleteClick }) {
       ></div>
 
       <div className="mt-3 flex items-center justify-between">
-        <TButton to={`/surveys/${survey.id}`}>
+        <TButton onClick={() => isOpen}>
           <PencilIcon className="mr-2 h-5 w-5" />
           Edit
         </TButton>
@@ -49,6 +55,8 @@ export default function SurveyListItem({ survey, onDeleteClick }) {
           )}
         </div>
       </div>
+
+      <Edit isOpen={isOpen} close={close} />
     </div>
   );
 }

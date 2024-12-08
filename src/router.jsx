@@ -7,6 +7,7 @@ import GuestLayout from "./Layout/GuestLayout.jsx";
 import Surveys from "./pages/Surveys.jsx";
 import DefaultLayout from "./Layout/DefaultLayout.jsx";
 import Create from "./pages/Create.jsx";
+import Edit from "./pages/Edit.jsx";
 
 const router = createBrowserRouter([
   {

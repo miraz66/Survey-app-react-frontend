@@ -38,12 +38,14 @@ export default function Surveys() {
         </div>
       </div>
 
-      <div className="grid min-h-screen grid-cols-1 gap-5 px-4 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid min-h-screen grid-cols-1 gap-5 px-4 sm:grid-cols-3 md:grid-cols-4">
         {surveys.map((survey) => (
           <SurveyListItem
             key={survey.id}
             survey={survey}
             onDeleteClick={onDeleteClick}
+            isOpen={isOpen}
+            close={close}
           />
         ))}
       </div>
