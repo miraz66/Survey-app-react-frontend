@@ -19,6 +19,7 @@ export default function Create({ close, isOpen }) {
     e.preventDefault();
     axiosClient.post("/survey", data);
     console.log(data);
+    console.log("Hello World");
   };
 
   return (
