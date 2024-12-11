@@ -44,8 +44,9 @@ export default function Surveys() {
             key={survey.id}
             survey={survey}
             onDeleteClick={onDeleteClick}
-            isOpen={isOpen}
+            setIsOpen={setIsOpen}
             close={close}
+            isOpen={isOpen}
           />
         ))}
       </div>
