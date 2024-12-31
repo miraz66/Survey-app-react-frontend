@@ -40,9 +40,9 @@ export default function Create({ close, isOpen }) {
     // }
     // delete pyload.image_url;
 
-    // axiosClient.post("/survey", data).then(({ res }) => {
-    //   console.log(res);
-    // });
+    axiosClient.post("/survey", data).then(({ res }) => {
+      console.log(res);
+    });
   };
 
   return (
