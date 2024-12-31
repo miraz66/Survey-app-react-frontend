@@ -11,15 +11,38 @@ export default function Create({ close, isOpen }) {
     description: "",
     image: null,
     image_url: null,
-    expire_date: "",
+    expires_date: "",
     questions: [],
   });
 
+  // set image url
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    const render = new FileReader();
+
+    render.onload = () => {
+      setData({
+        ...data,
+        image: URL.createObjectURL(e.target.files[0]),
+        image_url: render.result,
+      });
+    };
+
+    render.readAsDataURL(file);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosClient.post("/survey", data);
-    console.log(data);
-    console.log("Hello World");
+
+    // const pyload = { ...data };
+    // if (pyload.image_url) {
+    //   pyload.image = pyload.image_url;
+    // }
+    // delete pyload.image_url;
+
+    // axiosClient.post("/survey", data).then(({ res }) => {
+    //   console.log(res);
+    // });
   };
 
   return (
@@ -54,12 +77,7 @@ export default function Create({ close, isOpen }) {
                     />
                   )}
                   <input
-                    onChange={(e) => {
-                      setData({
-                        ...data,
-                        image: URL.createObjectURL(e.target.files[0]),
-                      });
-                    }}
+                    onChange={(e) => handleImage(e)}
                     type="file"
                     id="photo"
                     name="photo"
@@ -117,19 +135,19 @@ export default function Create({ close, isOpen }) {
 
               <div className="col-span-full">
                 <label
-                  htmlFor="date"
+                  htmlFor="expires_date"
                   className="block text-sm/6 font-medium text-gray-900"
                 >
                   ExpireDate
                 </label>
                 <div className="mt-2">
                   <input
-                    id="first-name"
-                    name="first-name"
+                    id="expires_date"
+                    name="expires_date"
                     type="date"
-                    value={data.expire_date}
+                    value={data.expires_date}
                     onChange={(e) => {
-                      setData({ ...data, expire_date: e.target.value });
+                      setData({ ...data, expires_date: e.target.value });
                     }}
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"

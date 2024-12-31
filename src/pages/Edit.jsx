@@ -11,14 +11,19 @@ export default function Edit({ close, isOpen }) {
     description: "",
     image: null,
     image_url: null,
-    expire_date: "",
+    expires_date: "",
     questions: [],
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosClient.post("/survey", data);
-    console.log(data);
+    axiosClient.post("/survey", {
+      title: "Frontend",
+      status: true,
+      expires_date: "2025-01-20",
+      description:
+        "Laravel is a web application framework with expressive, elegant syntax. We\u2019ve already laid the foundation \u2014 freeing you to create without sweating the small things.",
+    });
   };
 
   return (
