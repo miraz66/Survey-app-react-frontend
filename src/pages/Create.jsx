@@ -1,6 +1,6 @@
 import Modal from "../components/Modal.jsx";
 import { useState } from "react";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import axiosClient from "../axios.js";
 
 export default function Create({ close, isOpen }) {
@@ -31,18 +31,24 @@ export default function Create({ close, isOpen }) {
     render.readAsDataURL(file);
   };
 
+  // create survey
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const pyload = { ...data };
-    // if (pyload.image_url) {
-    //   pyload.image = pyload.image_url;
-    // }
-    // delete pyload.image_url;
+    const payload = { ...data };
+    if (payload.image_url) {
+      payload.image = payload.image_url; // Send base64 string as 'image'
+    }
+    delete payload.image_url;
 
-    axiosClient.post("/survey", data).then(({ res }) => {
-      console.log(res);
-    });
+    axiosClient
+      .post("/survey", payload)
+      .then(({ data }) => {
+        console.log("Survey created:", data);
+      })
+      .catch((error) => {
+        console.error("Error creating survey:", error.response?.data || error);
+      });
   };
 
   return (
